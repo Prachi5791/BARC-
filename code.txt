@@ -1,0 +1,281 @@
+using OpenCvSharp;
+using OpenCvSharp.Extensions;
+using System;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace DefectDetection
+{
+    public partial class Form1 : Form
+    {
+        Mat originalImage;
+        Mat croppedImage;
+
+        const int CROP_SIZE = 200;
+
+        public Form1()
+        {
+            InitializeComponent();
+            pictureBox1.MouseClick += PictureBox1_MouseClick;
+        }
+
+        // ---------------- LOAD IMAGE ----------------
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files|*.png;*.jpg;*.bmp";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                originalImage = Cv2.ImRead(ofd.FileName, ImreadModes.Grayscale);
+                pictureBox1.Image = BitmapConverter.ToBitmap(originalImage);
+                lblResult.Text = "Click on image to select ROI center";
+            }
+        }
+
+        // ---------------- MOUSE CLICK → CROP ----------------
+        private void PictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (originalImage == null) return;
+
+            // Convert PictureBox click to image coordinates
+            float scaleX = (float)originalImage.Width / pictureBox1.Width;
+            float scaleY = (float)originalImage.Height / pictureBox1.Height;
+
+            int cx = (int)(e.X * scaleX);
+            int cy = (int)(e.Y * scaleY);
+
+            int half = CROP_SIZE / 2;
+
+            int x = Math.Max(cx - half, 0);
+            int y = Math.Max(cy - half, 0);
+            int w = Math.Min(CROP_SIZE, originalImage.Width - x);
+            int h = Math.Min(CROP_SIZE, originalImage.Height - y);
+
+            Rect roi = new Rect(x, y, w, h);
+            croppedImage = new Mat(originalImage, roi);
+
+            pictureBox1.Image = BitmapConverter.ToBitmap(croppedImage);
+            lblResult.Text = "ROI selected (200x200)";
+        }
+
+        //----- draw hist ----
+        private Mat DrawHistogram(
+    int[] hist,
+    double[] smoothHist,
+    int peak,
+    int left,
+    int right,
+    double threshold)
+        {
+            int width = 512;
+            int height = 300;
+
+            Mat histImg = new Mat(height, width, MatType.CV_8UC3, Scalar.Black);
+
+            double maxVal = smoothHist.Max();
+            double scale = (height - 20) / maxVal;
+
+            int binW = width / 256;
+
+            // ---- Draw smoothed histogram ----
+            for (int i = 1; i < 255; i++)
+            {
+                OpenCvSharp.Point p1 = new OpenCvSharp.Point(
+                    (i - 1) * binW,
+                    height - (int)(smoothHist[i - 1] * scale)
+                );
+
+                OpenCvSharp.Point p2 = new OpenCvSharp.Point(
+                    i * binW,
+                    height - (int)(smoothHist[i] * scale)
+                );
+
+                Cv2.Line(histImg, p1, p2, Scalar.White, 2);
+            }
+
+            // ---- Peak line ----
+            Cv2.Line(
+                histImg,
+                new OpenCvSharp.Point(peak * binW, 0),
+                new OpenCvSharp.Point(peak * binW, height),
+                Scalar.Red,
+                2
+            );
+
+            // ---- FWHM lines ----
+            Cv2.Line(
+                histImg,
+                new OpenCvSharp.Point(left * binW, 0),
+                new OpenCvSharp.Point(left * binW, height),
+                Scalar.Yellow,
+                2
+            );
+
+            Cv2.Line(
+                histImg,
+                new OpenCvSharp.Point(right * binW, 0),
+                new OpenCvSharp.Point(right * binW, height),
+                Scalar.Yellow,
+                2
+            );
+
+            // ---- Threshold line ----
+            int t = (int)Math.Round(threshold);
+            Cv2.Line(
+                histImg,
+                new OpenCvSharp.Point(t * binW, 0),
+                new OpenCvSharp.Point(t * binW, height),
+                Scalar.Cyan,
+                2
+            );
+
+            // ---- Labels ----
+            Cv2.PutText(histImg, "Peak", new OpenCvSharp.Point(peak * binW + 5, 20),
+                HersheyFonts.HersheySimplex, 0.5, Scalar.Red, 1);
+
+            Cv2.PutText(histImg, "Threshold", new OpenCvSharp.Point(t * binW + 5, 40),
+                HersheyFonts.HersheySimplex, 0.5, Scalar.Cyan, 1);
+
+            return histImg;
+        }
+
+        private void SaveHistogramToTxt(
+            int[] hist,
+            double[] smoothHist,
+            string filePath)
+        {
+            using (StreamWriter sw = new StreamWriter("C:\\Users\\HP\\Downloads\\BARC (1)\\BARC\\hist.txt"))
+            {
+
+                for (int i = 0; i < 256; i++)
+                {
+                    sw.WriteLine($"{i},{hist[i]},{smoothHist[i]:F3}");
+                }
+            }
+        }
+
+
+        // ---------------- DETECT DEFECT ----------------
+        private void btnDetect_Click(object sender, EventArgs e)
+        {
+            if (croppedImage == null)
+            {
+                MessageBox.Show("Select a crop first by clicking on image");
+                return;
+            }
+
+            Mat img = croppedImage.Clone();
+
+            // ---------- HISTOGRAM ----------
+            int[] hist = new int[256];
+            for (int y = 0; y < img.Rows; y++)
+            {
+                for (int x = 0; x < img.Cols; x++)
+                {
+                    byte v = img.At<byte>(y, x);
+                    hist[v]++;
+                }
+            }
+
+            
+
+            // ---------- SMOOTH HISTOGRAM (3-point average) ----------
+            double[] smoothHist = new double[256];
+            for (int i = 1; i < 255; i++)
+            {
+                smoothHist[i] = (hist[i - 1] + hist[i] + hist[i + 1]) / 3.0;
+            }
+
+            // ---------- FIND HIGHEST PEAK ----------
+            int peakIndex = Array.IndexOf(smoothHist, smoothHist.Max());
+            double peakValue = smoothHist[peakIndex];
+            double halfMax = peakValue / 2.0;
+
+            // ---------- FULL WIDTH HALF MAX ----------
+            int left = peakIndex;
+            while (left > 0 && smoothHist[left] > halfMax)
+                left--;
+
+            int right = peakIndex;
+            while (right < 255 && smoothHist[right] > halfMax)
+                right++;
+
+            // ---------- MEAN & VARIANCE FROM FWHM ----------
+            double sum = 0;
+            double sumSq = 0;
+            double count = 0;
+
+            for (int i = left; i <= right; i++)
+            {
+                sum += i * smoothHist[i];
+                sumSq += i * i * smoothHist[i];
+                count += smoothHist[i];
+            }
+
+            double mean = sum / count;
+            double variance = (sumSq / count) - (mean * mean);
+            double stdDev = Math.Sqrt(variance);
+
+            double thresholdValue = mean - 3 * stdDev;
+            thresholdValue = Math.Max(thresholdValue, 0);
+
+            
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Text File (*.txt)|*.txt";
+            sfd.FileName = "histogram_data.txt";
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                SaveHistogramToTxt(hist, smoothHist, sfd.FileName);
+            }
+
+            //Mat histVis = DrawHistogram(hist, smoothHist, peakIndex, left, right, thresholdValue);
+            //pictureBox2.Image = BitmapConverter.ToBitmap(histVis);
+
+            // ---------- THRESHOLD ----------
+            Mat binary = new Mat();
+            Cv2.Threshold(img, binary, thresholdValue, 255, ThresholdTypes.BinaryInv);
+            binary.SaveImage("C:\\Users\\HP\\Downloads\\BARC (1)\\BARC\\binary.png");
+
+            // ---------- MORPHOLOGY ----------
+            Mat kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(3, 3));
+            Cv2.MorphologyEx(binary, binary, MorphTypes.Open, kernel);
+            binary.SaveImage("C:\\Users\\HP\\Downloads\\BARC (1)\\BARC\\morp1.png");
+            Cv2.MorphologyEx(binary, binary, MorphTypes.Close, kernel);
+            binary.SaveImage("C:\\Users\\HP\\Downloads\\BARC (1)\\BARC\\morp2.png");
+
+            // ---------- CONTOURS ----------
+            OpenCvSharp.Point[][] contours;
+            HierarchyIndex[] hierarchy;
+
+            Cv2.FindContours(
+                binary,
+                out contours,
+                out hierarchy,
+                RetrievalModes.External,
+                ContourApproximationModes.ApproxSimple
+            );
+
+            Mat output = new Mat();
+            Cv2.CvtColor(img, output, ColorConversionCodes.GRAY2BGR);
+
+            int defectCount = 0;
+
+            foreach (var contour in contours)
+            {
+                double area = Cv2.ContourArea(contour);
+                if (area > 50)
+                {
+                    defectCount++;
+                    Rect box = Cv2.BoundingRect(contour);
+                    Cv2.Rectangle(output, box, Scalar.Red, 2);
+                }
+            }
+
+            pictureBox1.Image = BitmapConverter.ToBitmap(output);
+            lblResult.Text = $"Defects: {defectCount} | Threshold: {thresholdValue:F1}";
+        }
+    }
+}
