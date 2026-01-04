@@ -66,7 +66,7 @@
 ////            Cv2.MorphologyEx(binary, binary, MorphTypes.Close, kernel);
 
 ////            // 4. Find contours
-////            OpenCvSharp.OpenCvSharp.Point[][] contours;
+////            OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point[][] contours;
 ////            HierarchyIndex[] hierarchy;
 
 ////            Cv2.FindContours(
@@ -104,7 +104,7 @@
 ////                    Cv2.PutText(
 ////                        output,
 ////                        text,
-////                        new OpenCvSharp.OpenCvSharp.Point(box.X, box.Y - 5),
+////                        new OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point(box.X, box.Y - 5),
 ////                        HersheyFonts.HersheySimplex,
 ////                        0.4,
 ////                        Scalar.Yellow,
@@ -210,12 +210,12 @@
 //            // ---- Draw smoothed histogram ----
 //            for (int i = 1; i < 255; i++)
 //            {
-//                OpenCvSharp.Point p1 = new OpenCvSharp.Point(
+//                OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point p1 = new OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point(
 //                    (i - 1) * binW,
 //                    height - (int)(smoothHist[i - 1] * scale)
 //                );
 
-//                OpenCvSharp.Point p2 = new OpenCvSharp.Point(
+//                OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point p2 = new OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point(
 //                    i * binW,
 //                    height - (int)(smoothHist[i] * scale)
 //                );
@@ -226,8 +226,8 @@
 //            // ---- Peak line ----
 //            Cv2.Line(
 //                histImg,
-//                new OpenCvSharp.Point(peak * binW, 0),
-//                new OpenCvSharp.Point(peak * binW, height),
+//                new OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point(peak * binW, 0),
+//                new OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point(peak * binW, height),
 //                Scalar.Red,
 //                2
 //            );
@@ -235,16 +235,16 @@
 //            // ---- FWHM lines ----
 //            Cv2.Line(
 //                histImg,
-//                new OpenCvSharp.Point(left * binW, 0),
-//                new OpenCvSharp.Point(left * binW, height),
+//                new OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point(left * binW, 0),
+//                new OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point(left * binW, height),
 //                Scalar.Yellow,
 //                2
 //            );
 
 //            Cv2.Line(
 //                histImg,
-//                new OpenCvSharp.Point(right * binW, 0),
-//                new OpenCvSharp.Point(right * binW, height),
+//                new OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point(right * binW, 0),
+//                new OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point(right * binW, height),
 //                Scalar.Yellow,
 //                2
 //            );
@@ -253,17 +253,17 @@
 //            int t = (int)Math.Round(threshold);
 //            Cv2.Line(
 //                histImg,
-//                new OpenCvSharp.Point(t * binW, 0),
-//                new OpenCvSharp.Point(t * binW, height),
+//                new OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point(t * binW, 0),
+//                new OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point(t * binW, height),
 //                Scalar.Cyan,
 //                2
 //            );
 
 //            // ---- Labels ----
-//            Cv2.PutText(histImg, "Peak", new OpenCvSharp.Point(peak * binW + 5, 20),
+//            Cv2.PutText(histImg, "Peak", new OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point(peak * binW + 5, 20),
 //                HersheyFonts.HersheySimplex, 0.5, Scalar.Red, 1);
 
-//            Cv2.PutText(histImg, "Threshold", new OpenCvSharp.Point(t * binW + 5, 40),
+//            Cv2.PutText(histImg, "Threshold", new OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point(t * binW + 5, 40),
 //                HersheyFonts.HersheySimplex, 0.5, Scalar.Cyan, 1);
 
 //            return histImg;
@@ -376,7 +376,7 @@
 //            binary.SaveImage("C:\\Users\\HP\\Downloads\\BARC (1)\\BARC\\morp2.png");
 
 //            // ---------- CONTOURS ----------
-//            OpenCvSharp.Point[][] contours;
+//            OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point[][] contours;
 //            HierarchyIndex[] hierarchy;
 
 //            Cv2.FindContours(
@@ -570,7 +570,7 @@
 //            edges.SaveImage(Path.Combine(currentOutputDir, "canny_fill.png"));
 
 //            // ---- Contours ----
-//            OpenCvSharp.Point[][] contours;
+//            OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point[][] contours;
 //            HierarchyIndex[] hier;
 //            Cv2.FindContours(binary, out contours, out hier,
 //                RetrievalModes.External, ContourApproximationModes.ApproxSimple);
@@ -636,7 +636,7 @@
 //    }
 //}
 
-
+/**
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System;
@@ -869,7 +869,7 @@ namespace DefectDetection
             edges.SaveImage(Path.Combine(currentOutputDir, "canny_fill.png"));
 
             // ---- Contours ----
-            OpenCvSharp.Point[][] contours;
+            OpenCvSharp.OpenCvSharp.OpenCvSharp.OpenCvSharp.Point[][] contours;
             HierarchyIndex[] hier;
             Cv2.FindContours(binary, out contours, out hier,
                 RetrievalModes.External, ContourApproximationModes.ApproxSimple);
@@ -959,3 +959,446 @@ namespace DefectDetection
         }
     }
 }
+**/
+
+using OpenCvSharp;
+using OpenCvSharp.Extensions;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace DefectDetection
+{
+    public partial class Form1 : Form
+    {
+        Mat originalImage;
+        Mat croppedImage;
+
+        const int CROP_SIZE = 500;
+
+        string sessionRootDir = "";
+        string currentOutputDir = "";
+        string loadedImagePath = "";
+
+        public Form1()
+        {
+            InitializeComponent();
+            pictureBox1.MouseClick += PictureBox1_MouseClick;
+        }
+
+        // ---------- CREATE SESSION FOLDER ----------
+        private string CreateSessionFolder(string inputPath)
+        {
+            string imgName = Path.GetFileNameWithoutExtension(inputPath);
+
+            // Folder named after the image
+            string imageRoot = Path.Combine(
+                Path.GetDirectoryName(inputPath),
+                imgName);
+
+            Directory.CreateDirectory(imageRoot);
+
+            // DATE ONLY folder
+            string dateFolder = DateTime.Now.ToString("yyyy-MM-dd");
+            sessionRootDir = Path.Combine(imageRoot, dateFolder);
+
+            Directory.CreateDirectory(sessionRootDir);
+
+            return sessionRootDir;
+        }
+
+
+        // ---------- LOAD IMAGE ----------
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files|*.png;*.jpg;*.bmp;*.jpeg";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                loadedImagePath = ofd.FileName;
+
+                originalImage = Cv2.ImRead(loadedImagePath, ImreadModes.Grayscale);
+                pictureBox1.Image = BitmapConverter.ToBitmap(originalImage);
+
+                CreateSessionFolder(loadedImagePath);
+
+                lblResult.Text = "Click on image to select ROI center";
+            }
+        }
+
+        // ---------- CROP ON CLICK ----------
+        private void PictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (originalImage == null) return;
+
+            float sx = (float)originalImage.Width / pictureBox1.Width;
+            float sy = (float)originalImage.Height / pictureBox1.Height;
+
+            int cx = (int)(e.X * sx);
+            int cy = (int)(e.Y * sy);
+
+            int half = CROP_SIZE / 2;
+
+            int x = Math.Max(cx - half, 0);
+            int y = Math.Max(cy - half, 0);
+            int w = Math.Min(CROP_SIZE, originalImage.Width - x);
+            int h = Math.Min(CROP_SIZE, originalImage.Height - y);
+
+            Rect roi = new Rect(x, y, w, h);
+            croppedImage = new Mat(originalImage, roi);
+
+            // ---- TIME added to crop folder name ----
+            string time12 = DateTime.Now.ToString("hh-mm-ss tt"); // 12-hour clock
+
+            string cropFolder = $"Cx{cx}_Cy{cy}_{time12}";
+            currentOutputDir = Path.Combine(sessionRootDir, cropFolder);
+            Directory.CreateDirectory(currentOutputDir);
+
+            croppedImage.SaveImage(Path.Combine(currentOutputDir, "01_crop.png"));
+
+            pictureBox1.Image = BitmapConverter.ToBitmap(croppedImage);
+            lblResult.Text = $"ROI selected ({w}x{h})";
+        }
+
+
+        // ---------- HIST STATS MODEL ----------
+        private class HistStats
+        {
+            public double Mean;
+            public double Sigma;
+            public double Skew;
+            public double Kurtosis;
+            public bool IsMultimodal;
+            public int BrightPeak;
+        }
+
+        private HistStats AnalyzeHistogram(double[] smooth)
+        {
+            List<int> peaks = new List<int>();
+
+            for (int i = 1; i < 254; i++)
+            {
+                if (smooth[i] > smooth[i - 1] &&
+                    smooth[i] > smooth[i + 1] &&
+                    smooth[i] > 0.05 * smooth.Max())
+                    peaks.Add(i);
+            }
+
+            bool multimodal = peaks.Count > 1;
+            int brightPeak = peaks.OrderByDescending(p => smooth[p]).First();
+
+            int start = 0, end = 255;
+
+            if (multimodal)
+            {
+                start = Math.Max(brightPeak - 20, 0);
+                end = Math.Min(brightPeak + 40, 255);
+            }
+
+            double sum = 0, sumSq = 0, w = 0;
+
+            for (int i = start; i <= end; i++)
+            {
+                double f = smooth[i];
+                sum += i * f;
+                sumSq += i * i * f;
+                w += f;
+            }
+
+            double mean = sum / w;
+            double var = (sumSq / w) - (mean * mean);
+            double sigma = Math.Sqrt(Math.Max(var, 1e-6));
+
+            double m3 = 0, m4 = 0;
+
+            for (int i = start; i <= end; i++)
+            {
+                double d = i - mean;
+                double f = smooth[i];
+                m3 += d * d * d * f;
+                m4 += d * d * d * d * f;
+            }
+
+            m3 /= w;
+            m4 /= w;
+
+            double skew = m3 / Math.Pow(sigma, 3);
+            double kurt = (m4 / (sigma * sigma * sigma * sigma)) - 3.0;
+
+            return new HistStats
+            {
+                Mean = mean,
+                Sigma = sigma,
+                Skew = skew,
+                Kurtosis = kurt,
+                IsMultimodal = multimodal,
+                BrightPeak = brightPeak
+            };
+        }
+
+        private double SelectK(HistStats s)
+        {
+            double k;
+
+            if (s.IsMultimodal)
+            {
+                k = 4.0;
+                if (s.Skew < -0.6) k = 4.5;
+            }
+            else
+            {
+                if (s.Kurtosis > 0.8)
+                    k = 3.2;
+                else
+                    k = 2.7;
+
+                if (s.Skew < -0.6) k += 0.4;
+                if (s.Skew > 0.6) k -= 0.3;
+            }
+
+            return Math.Max(2.0, Math.Min(k, 5.0));
+        }
+
+        private void SaveHistogramCsv(int[] hist, double[] smooth, string path)
+        {
+            using (var sw = new StreamWriter(path))
+            {
+                sw.WriteLine("Intensity,RawCount,SmoothValue");
+                for (int i = 0; i < 256; i++)
+                    sw.WriteLine($"{i},{hist[i]},{smooth[i]:F3}");
+            }
+        }
+
+        private Mat DrawHistogramOpenCv(int[] hist, double[] smooth)
+        {
+            int width = 900;   // large readable box
+            int height = 400;
+
+            // light background
+            Mat canvas = new Mat(height, width, MatType.CV_8UC3,
+                new Scalar(245, 245, 245));   // very light gray / near-white
+
+            double maxVal = Math.Max(hist.Max(), smooth.Max());
+            double scaleY = (height - 50) / maxVal;
+
+            int binW = width / 256;
+
+            // ---- draw axes ----
+            Cv2.Line(canvas, new OpenCvSharp.Point(0, height - 30), new OpenCvSharp.Point(width, height - 30),
+                new Scalar(160, 160, 160), 1);
+
+            Cv2.Line(canvas, new OpenCvSharp.Point(40, 0), new OpenCvSharp.Point(40, height),
+                new Scalar(160, 160, 160), 1);
+
+            // ---- light grid lines ----
+            for (int y = 50; y < height - 30; y += 50)
+                Cv2.Line(canvas, new OpenCvSharp.Point(40, y), new OpenCvSharp.Point(width, y),
+                    new Scalar(220, 220, 220), 1);
+
+            // ---- histogram bars (RawCount) ----
+            for (int i = 0; i < 256; i++)
+            {
+                int x = 40 + i * binW;
+                int barH = (int)(hist[i] * scaleY);
+
+                Cv2.Rectangle(
+                    canvas,
+                    new Rect(x, (height - 30) - barH,
+                             Math.Max(binW - 1, 1), barH),
+                   new Scalar(255, 120, 40), -1);
+            }
+
+            // ---- smoothed curve (orange) ----
+            for (int i = 1; i < 256; i++)
+            {
+                OpenCvSharp.Point p1 = new OpenCvSharp.Point(40 + (i - 1) * binW,
+                    (height - 30) - (int)(smooth[i - 1] * scaleY));
+
+                OpenCvSharp.Point p2 = new OpenCvSharp.Point(40 + i * binW,
+                    (height - 30) - (int)(smooth[i] * scaleY));
+
+                Cv2.Line(canvas, p1, p2, new Scalar(40, 140, 255), 3); // orange
+            }
+
+            // ---- x-axis labels ----
+            for (int i = 0; i <= 255; i += 32)
+            {
+                int x = 40 + i * binW;
+
+                Cv2.Line(canvas, new OpenCvSharp.Point(x, height - 35), new OpenCvSharp.Point(x, height - 30),
+                    new Scalar(150, 150, 150), 1);
+
+                Cv2.PutText(canvas, i.ToString(),
+                    new OpenCvSharp.Point(x - 5, height - 10),
+                    HersheyFonts.HersheySimplex, 0.45,
+                    new Scalar(80, 80, 80), 1);
+            }
+
+            // ---- title ----
+            Cv2.PutText(canvas, "Histogram (0–255)",
+                new OpenCvSharp.Point(10, 25),
+                HersheyFonts.HersheySimplex, 0.65,
+                new Scalar(60, 60, 60), 2);
+
+            return canvas;
+        }
+
+
+        // ---------- DETECT ----------
+        private void btnDetect_Click(object sender, EventArgs e)
+        {
+            if (croppedImage == null)
+            {
+                MessageBox.Show("Select a crop first.");
+                return;
+            }
+
+            Mat img = croppedImage.Clone();
+
+            Cv2.GaussianBlur(img, img, new OpenCvSharp.Size(5, 5), 0);
+            img.SaveImage(Path.Combine(currentOutputDir, "02_blur.png"));
+
+            int[] hist = new int[256];
+            for (int y = 0; y < img.Rows; y++)
+                for (int x = 0; x < img.Cols; x++)
+                    hist[img.At<byte>(y, x)]++;
+
+            double[] smooth = new double[256];
+            for (int i = 1; i < 255; i++)
+                smooth[i] = (hist[i - 1] + hist[i] + hist[i + 1]) / 3.0;
+
+            SaveHistogramCsv(hist, smooth,
+                Path.Combine(currentOutputDir, "histogram_data.csv"));
+
+            HistStats stats = AnalyzeHistogram(smooth);
+            double k = SelectK(stats);
+
+            Mat histImg = DrawHistogramOpenCv(hist, smooth);
+
+            // show to user
+            pictureBox2.Image = BitmapConverter.ToBitmap(histImg);
+
+            // save alongside ROI results
+            histImg.SaveImage(Path.Combine(currentOutputDir, "09_histogram.png"));
+
+
+            double threshold = Math.Max(stats.Mean - k * stats.Sigma, 0);
+
+            Mat binary = new Mat();
+            Cv2.Threshold(img, binary, threshold, 255, ThresholdTypes.BinaryInv);
+            binary.SaveImage(Path.Combine(currentOutputDir, "03_binary.png"));
+
+            Mat kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(3, 3));
+            Cv2.MorphologyEx(binary, binary, MorphTypes.Open, kernel);
+            binary.SaveImage(Path.Combine(currentOutputDir, "04_morph_open.png"));
+
+            Cv2.MorphologyEx(binary, binary, MorphTypes.Close, kernel);
+            binary.SaveImage(Path.Combine(currentOutputDir, "05_morph_close.png"));
+
+            Mat edges = new Mat();
+            Cv2.Canny(img, edges, 50, 150);
+            edges.SaveImage(Path.Combine(currentOutputDir, "06_canny.png"));
+
+            Cv2.MorphologyEx(edges, edges, MorphTypes.Close, kernel);
+            edges.SaveImage(Path.Combine(currentOutputDir, "07_canny_fill.png"));
+
+            OpenCvSharp.Point[][] contours;
+            HierarchyIndex[] hier;
+            Cv2.FindContours(binary, out contours, out hier,
+                RetrievalModes.External, ContourApproximationModes.ApproxSimple);
+
+            Mat result = new Mat();
+            Cv2.CvtColor(img, result, ColorConversionCodes.GRAY2BGR);
+
+            using (var log = new StreamWriter(Path.Combine(currentOutputDir, "info.txt")))
+            {
+                log.WriteLine($"Image  : {Path.GetFileName(loadedImagePath)}");
+                log.WriteLine($"Date   : {DateTime.Now:yyyy-MM-dd}");
+                log.WriteLine($"Time   : {DateTime.Now:hh:mm:ss tt}");
+                log.WriteLine($"Crop   : {currentOutputDir}");
+                log.WriteLine();
+
+                log.WriteLine(
+                    $"MODE={(stats.IsMultimodal ? "MULTI" : "UNI")}, " +
+                    $"peak={stats.BrightPeak}, mean={stats.Mean:F2}, sigma={stats.Sigma:F2}, " +
+                    $"skew={stats.Skew:F2}, kurt={stats.Kurtosis:F2}, k={k:F2}, thr={threshold:F2}");
+                log.WriteLine();
+
+                int accepted = 0;
+
+                foreach (var cts in contours)
+                {
+                    double area = Cv2.ContourArea(cts);
+
+                    RotatedRect r = Cv2.MinAreaRect(cts);
+                    float aspect = (float)r.Size.Width / r.Size.Height;
+                    if (aspect < 1) aspect = 1 / aspect;
+
+                    bool isCrack = aspect > 3.0;
+
+                    bool evaluate = area >= 150 || isCrack;
+
+                    if (!evaluate)
+                    {
+                        log.WriteLine($"SKIPPED area={area:F1}, aspect={aspect:F2}");
+                        continue;
+                    }
+
+                    Mat mask = Mat.Zeros(img.Size(), MatType.CV_8UC1);
+                    Cv2.DrawContours(mask, new[] { cts }, -1, Scalar.White, -1);
+                    double defectMean = Cv2.Mean(img, mask).Val0;
+
+                    Mat boundaryMask = Mat.Zeros(img.Size(), MatType.CV_8UC1);
+                    Cv2.DrawContours(boundaryMask, new[] { cts }, -1, Scalar.White, 2);
+                    double boundaryMean = Cv2.Mean(img, boundaryMask).Val0;
+
+                    double diffRatio = Math.Abs(boundaryMean - defectMean) / boundaryMean;
+
+                    bool condIntensity = defectMean < threshold;
+                    bool condContrast = diffRatio >= 0.60;
+
+                    bool accept = condIntensity || condContrast;
+
+                    string reason =
+                        !accept ? "REJECT" :
+                        condIntensity && condContrast ? "ACCEPT (both)" :
+                        condIntensity ? "ACCEPT (intensity<threshold)" :
+                        "ACCEPT (contrast>60%)";
+
+                    log.WriteLine(
+                        $"Area={area:F1}, Aspect={aspect:F2}, Crack={isCrack}, " +
+                        $"DefMean={defectMean:F1}, BndMean={boundaryMean:F1}, " +
+                        $"Diff={diffRatio:P0}, Accept={accept}, Reason={reason}");
+
+                    if (accept)
+                    {
+                        accepted++;
+                        Cv2.Polylines(result, new[] { cts }, true, Scalar.Red, 2);
+                    }
+                }
+
+                log.WriteLine();
+                log.WriteLine($"Accepted defects = {accepted}");
+            }
+
+            result.SaveImage(Path.Combine(currentOutputDir, "08_final_result.png"));
+
+            pictureBox1.Image = BitmapConverter.ToBitmap(result);
+            lblResult.Text = "Processing complete — results saved.";
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
+
+
+
+/***
+ * https://chatgpt.com/share/695a7f1a-deb0-800e-8dbd-f2ef770e7bbb
+ * **/
